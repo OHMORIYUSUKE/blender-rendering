@@ -11,7 +11,7 @@ def main():
         print("can't be opened")
         sys.exit()
 
-    for i in range(0, 100+1):
+    for i in range(0, 10+1):
         # hoge0000.png, hoge0001.png,..., hoge0090.png
         img = cv2.imread('./img/anim%04d.png' % i)
 
