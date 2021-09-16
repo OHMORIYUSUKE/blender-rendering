@@ -13,7 +13,7 @@ def main():
 
     for i in range(0, 90+1):
         #-------------------------------
-        proc = subprocess.run("date '+%Y-%m-%d %H:%M:%S'", shell=True, stdout=PIPE, stderr=PIPE, text=True)
+        proc = subprocess.run("date '+%Y-%m-%d-%H-%M-%S", shell=True, stdout=PIPE, stderr=PIPE, text=True)
         date = proc.stdout
         #-------------------------------
         # hoge0000.png, hoge0001.png,..., hoge0090.png

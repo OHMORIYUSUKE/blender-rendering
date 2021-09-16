@@ -1,5 +1,5 @@
 #!/bin/bash
-DATE=`date '+%Y-%m-%d %H:%M:%S'`
+DATE=`date '+%Y-%m-%d-%H-%M-%S'`
 # Blenderをレンダリング
 # https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html
 sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/$DATE/anim --frame-start 2000 --frame-end 2500
