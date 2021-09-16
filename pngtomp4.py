@@ -11,13 +11,9 @@ def main():
         print("can't be opened")
         sys.exit()
 
-    for i in range(0, 90+1):
-        #-------------------------------
-        proc = subprocess.run("date '+%Y-%m-%d-%H-%M-%S", shell=True, stdout=PIPE, stderr=PIPE, text=True)
-        date = proc.stdout
-        #-------------------------------
+    for i in range(0, 100+1):
         # hoge0000.png, hoge0001.png,..., hoge0090.png
-        img = cv2.imread('./img/'+date+'/anim%04d.png' % i)
+        img = cv2.imread('./img/anim%04d.png' % i)
 
         # can't read image, escape
         if img is None:
