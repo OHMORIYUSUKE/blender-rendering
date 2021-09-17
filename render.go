@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"log"
 )
 
 func toInt64(strVal string) int64 {
