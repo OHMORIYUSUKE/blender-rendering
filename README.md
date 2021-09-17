@@ -14,3 +14,11 @@ GitHubActionsでBlenderをレンダリングします。
 ---
 
 [レンダリングコマンドについて](https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html)
+
+---
+
+## サンプルで使用したblendデータ
+
+https://www.miraikomachi.com/download/
+
+https://github.com/Miraikomachi/MiraikomachiForBlender
