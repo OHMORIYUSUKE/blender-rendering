@@ -75,10 +75,15 @@ func main() {
 	fmt.Println(end.Name, end.Number)
 	fmt.Println(video.Name, video.Number)
 
+	var StrStartNum string
+	StrStartNum = strconv.Itoa(start.Number)
+	var StrEndNum string
+	StrEndNum = strconv.Itoa(start.Number)
+
 	//--コマンド実行--
 	// sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/anim -s 2330 -e 2331 -a
 
-	cmd := exec.Command("sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + start.Number + " -e " + end.Number + " -a")
+	cmd := exec.Command("sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a")
 	cmd.Start()
 	cmd.Wait()
 	if video.Number == 1 {
