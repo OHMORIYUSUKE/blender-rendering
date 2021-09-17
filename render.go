@@ -83,17 +83,23 @@ func main() {
 	//--コマンド実行--
 	// sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/anim -s 2330 -e 2331 -a
 
-	cmd := exec.Command("sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a")
-	cmd.Start()
-	cmd.Wait()
+	// cmd := exec.Command("sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a")
+	// cmd.Start()
+	// cmd.Wait()
+	var out []byte
+	out, err := exec.Command("sudo","blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a").Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Result:%s\n", string(out))
 	if video.Number == 1 {
-		cmd := exec.Command("sudo apt-get install -y -q python3 ")
+		cmd := exec.Command("sudo", "apt-get install -y -q python3 ")
 		cmd.Start()
 		cmd.Wait()
-		cmd1 := exec.Command("sudo pip install opencv-python-headless==4.4.0.44")
+		cmd1 := exec.Command("sudo", "pip install opencv-python-headless==4.4.0.44")
 		cmd1.Start()
 		cmd1.Wait()
-		cmd2 := exec.Command("sudo python3 pngtomp4.py")
+		cmd2 := exec.Command("sudo", "python3 pngtomp4.py")
 		cmd2.Start()
 		cmd2.Wait()
 	}
