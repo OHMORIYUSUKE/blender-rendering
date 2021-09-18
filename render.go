@@ -84,16 +84,16 @@ func main() {
 
 	//--コマンド実行--
 	// shファイルに書き込み
-	file, err := os.Create(`make_png.sh`)
+	File, err := os.Create("make_png.sh")
 	if err != nil {
 		log.Fatal(err) //ファイルが開けなかったときエラー出力
 	}
-	defer file.Close()
+	defer File.Close()
 
-	cmdString := `#!/bin/sh`
+	cmdString := "#!/bin/sh"
 	cmdString = cmdString + "\n\n"
-	cmdString = "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
-	file.Write(([]byte)(cmdString))
+	cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
+	File.Write(([]byte)(cmdString))
 	// 書き込み終了
 	// コマンド実行
 	cmd := exec.Command("sh", "make_png.sh")
@@ -113,20 +113,20 @@ func main() {
 	if video.Number == 1 {
 		//--コマンド実行--
 		// shファイルに書き込み
-		file, err := os.Create(`make_video.sh`)
+		File, err := os.Create("make_video.sh")
 		if err != nil {
 			log.Fatal(err) //ファイルが開けなかったときエラー出力
 		}
-		defer file.Close()
+		defer File.Close()
 
-		cmdString := `#!/bin/sh`
+		cmdString := "#!/bin/sh"
 		cmdString = cmdString + "\n\n"
-		cmdString = "sudo apt-get install -y -q python3"
+		cmdString = cmdString + "sudo apt-get install -y -q python3"
 		cmdString = cmdString + "\n\n"
 		cmdString = cmdString + "sudo pip install opencv-python-headless==4.4.0.44"
 		cmdString = cmdString + "\n\n"
 		cmdString = cmdString + "sudo python3 pngtomp4.py"
-		file.Write(([]byte)(cmdString))
+		File.Write(([]byte)(cmdString))
 		// 書き込み終了
 		// コマンド実行
 		cmd := exec.Command("sh", "make_video.sh")
