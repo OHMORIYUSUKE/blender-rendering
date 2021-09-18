@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/anim -s 1979 -e 1979 -a
+sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/anim -s 1798 -e 1799 -a
 
 sudo apt-get install -y -q python3
 
