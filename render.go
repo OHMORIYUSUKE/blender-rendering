@@ -2,12 +2,12 @@ package main
 
 import (
 	"bufio"
-	"bytes"
+	//"bytes"
 	"fmt"
 	"log"
 	"math"
 	"os"
-	"os/exec"
+	//"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -80,11 +80,11 @@ func main() {
 	var StrStartNum string
 	StrStartNum = strconv.Itoa(start.Number)
 	var StrEndNum string
-	StrEndNum = strconv.Itoa(start.Number)
+	StrEndNum = strconv.Itoa(end.Number)
 
 	//--コマンド実行--
 	// shファイルに書き込み
-	File, err := os.Create("make_png.sh")
+	File, err := os.Create("make.sh")
 	if err != nil {
 		log.Fatal(err) //ファイルが開けなかったときエラー出力
 	}
@@ -95,31 +95,33 @@ func main() {
 	cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
 	File.Write(([]byte)(cmdString))
 	// 書き込み終了
-	// コマンド実行
-	cmd := exec.Command("sh", "make_png.sh")
-	var stdout bytes.Buffer
-	cmd.Stdout = &stdout
+	// // コマンド実行
+	// cmd := exec.Command("sh", "make.sh")
+	// var stdout bytes.Buffer
+	// cmd.Stdout = &stdout
 
-	err2 := cmd.Run()
+	// err2 := cmd.Run()
 
-	if err2 != nil {
-		fmt.Println(err2)
-		os.Exit(1)
-	}
+	// if err2 != nil {
+	// 	fmt.Println(err2)
+	// 	os.Exit(1)
+	// }
 
-	fmt.Println(stdout.String())
-	// コマンド実行終了
+	// fmt.Println(stdout.String())
+	// // コマンド実行終了
 	// 動画書き出す場合
 	if video.Number == 1 {
 		//--コマンド実行--
 		// shファイルに書き込み
-		File, err := os.Create("make_video.sh")
+		File, err := os.Create("make.sh")
 		if err != nil {
 			log.Fatal(err) //ファイルが開けなかったときエラー出力
 		}
 		defer File.Close()
-
+		fmt.Println(StrStartNum,StrEndNum)
 		cmdString := "#!/bin/sh"
+		cmdString = cmdString + "\n\n"
+		cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
 		cmdString = cmdString + "\n\n"
 		cmdString = cmdString + "sudo apt-get install -y -q python3"
 		cmdString = cmdString + "\n\n"
@@ -128,20 +130,20 @@ func main() {
 		cmdString = cmdString + "sudo python3 pngtomp4.py"
 		File.Write(([]byte)(cmdString))
 		// 書き込み終了
-		// コマンド実行
-		cmd := exec.Command("sh", "make_video.sh")
-		var stdout bytes.Buffer
-		cmd.Stdout = &stdout
+		// // コマンド実行
+		// cmd := exec.Command("sh", "make_video.sh")
+		// var stdout bytes.Buffer
+		// cmd.Stdout = &stdout
 
-		err2 := cmd.Run()
+		// err2 := cmd.Run()
 
-		if err2 != nil {
-			fmt.Println(err2)
-			os.Exit(1)
-		}
+		// if err2 != nil {
+		// 	fmt.Println(err2)
+		// 	os.Exit(1)
+		// }
 
-		fmt.Println(stdout.String())
-		// コマンド実行終了
+		// fmt.Println(stdout.String())
+		// // コマンド実行終了
 
 	}
 
