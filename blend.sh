@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Blenderのセットアップ
 # aptアップデート,snapインストール,Blenderインストール
 sudo apt -y update
 sudo apt list --upgradable
