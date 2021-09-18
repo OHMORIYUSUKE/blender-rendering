@@ -6,6 +6,10 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
+      with:
+      # Repository name with owner. For example, actions/checkout
+      # Default: ${{ github.repository }}
+      repository: OHMORIYUSUKE/blender-rendering
     - name: Run sh
       run: |
         sh blend.sh
