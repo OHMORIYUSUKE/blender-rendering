@@ -2,14 +2,15 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
+	"log"
 	"math"
 	"os"
 	"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
-	"log"
 )
 
 func toInt64(strVal string) int64 {
@@ -82,27 +83,66 @@ func main() {
 	StrEndNum = strconv.Itoa(start.Number)
 
 	//--コマンド実行--
-	// sudo blender --background -noaudio blend/Miraikomachi.blend --threads 0 -E CYCLES --render-output img/anim -s 2330 -e 2331 -a
-
-	// cmd := exec.Command("sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a")
-	// cmd.Start()
-	// cmd.Wait()
-	var out []byte
-	out, err := exec.Command("sudo","blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a").Output()
+	// shファイルに書き込み
+	file, err := os.Create(`make_png.sh`)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) //ファイルが開けなかったときエラー出力
 	}
-	fmt.Printf("Result:%s\n", string(out))
+	defer file.Close()
+
+	cmdString := `#!/bin/sh`
+	cmdString = cmdString + "\n\n"
+	cmdString = "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
+	file.Write(([]byte)(cmdString))
+	// 書き込み終了
+	// コマンド実行
+	cmd := exec.Command("sh", "make_png.sh")
+	var stdout bytes.Buffer
+	cmd.Stdout = &stdout
+
+	err2 := cmd.Run()
+
+	if err2 != nil {
+		fmt.Println(err2)
+		os.Exit(1)
+	}
+
+	fmt.Println(stdout.String())
+	// コマンド実行終了
+	// 動画書き出す場合
 	if video.Number == 1 {
-		cmd := exec.Command("sudo", "apt-get install -y -q python3 ")
-		cmd.Start()
-		cmd.Wait()
-		cmd1 := exec.Command("sudo", "pip install opencv-python-headless==4.4.0.44")
-		cmd1.Start()
-		cmd1.Wait()
-		cmd2 := exec.Command("sudo", "python3 pngtomp4.py")
-		cmd2.Start()
-		cmd2.Wait()
+		//--コマンド実行--
+		// shファイルに書き込み
+		file, err := os.Create(`make_video.sh`)
+		if err != nil {
+			log.Fatal(err) //ファイルが開けなかったときエラー出力
+		}
+		defer file.Close()
+
+		cmdString := `#!/bin/sh`
+		cmdString = cmdString + "\n\n"
+		cmdString = "sudo apt-get install -y -q python3"
+		cmdString = cmdString + "\n\n"
+		cmdString = cmdString + "sudo pip install opencv-python-headless==4.4.0.44"
+		cmdString = cmdString + "\n\n"
+		cmdString = cmdString + "sudo python3 pngtomp4.py"
+		file.Write(([]byte)(cmdString))
+		// 書き込み終了
+		// コマンド実行
+		cmd := exec.Command("sh", "make_video.sh")
+		var stdout bytes.Buffer
+		cmd.Stdout = &stdout
+
+		err2 := cmd.Run()
+
+		if err2 != nil {
+			fmt.Println(err2)
+			os.Exit(1)
+		}
+
+		fmt.Println(stdout.String())
+		// コマンド実行終了
+
 	}
 
 }
