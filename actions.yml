@@ -1,0 +1,22 @@
+author: OHMORIYUSUKE
+description: You can render your blender project in Cycles. You can also output video.
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        sh blend.sh
+        sudo apt-get install -y -q golang-go
+        sudo go run render.go
+        sh make.sh
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Generate PNG"
+        git pull 
+        git push
+      shell: bash
+
+branding:
+  icon: "bold"
+  color: "green"
