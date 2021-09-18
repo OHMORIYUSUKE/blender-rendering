@@ -92,7 +92,7 @@ func main() {
 
 	cmdString := "#!/bin/sh"
 	cmdString = cmdString + "\n\n"
-	cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
+	cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + " -s " + StrStartNum + " -e " + StrEndNum + " -a"
 	File.Write(([]byte)(cmdString))
 	// 書き込み終了
 	// // コマンド実行
@@ -121,7 +121,7 @@ func main() {
 		fmt.Println(StrStartNum,StrEndNum)
 		cmdString := "#!/bin/sh"
 		cmdString = cmdString + "\n\n"
-		cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + "-s " + StrStartNum + " -e " + StrEndNum + " -a"
+		cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + " -s " + StrStartNum + " -e " + StrEndNum + " -a"
 		cmdString = cmdString + "\n\n"
 		cmdString = cmdString + "sudo apt-get install -y -q python3"
 		cmdString = cmdString + "\n\n"
