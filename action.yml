@@ -5,7 +5,9 @@ description: "You can render your blender project in Cycles. You can also output
 runs:
   using: "composite"
   steps:
-    - run: |
+    - uses: actions/checkout@v2
+    - name: Run sh
+      run: |
         sh blend.sh
         sudo apt-get install -y -q golang-go
         sudo go run render.go
