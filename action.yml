@@ -1,5 +1,6 @@
-author: OHMORIYUSUKE
-description: You can render your blender project in Cycles. You can also output video.
+name: "blender-rendering"
+author: "OHMORIYUSUKE"
+description: "You can render your blender project in Cycles. You can also output video."
 
 runs:
   using: "composite"
