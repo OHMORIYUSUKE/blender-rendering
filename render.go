@@ -2,12 +2,10 @@ package main
 
 import (
 	"bufio"
-	//"bytes"
 	"fmt"
 	"log"
 	"math"
 	"os"
-	//"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -53,23 +51,17 @@ func main() {
 
 		intNumber = Int64ToInt(number64)
 
-		//--
 		r := regexp.MustCompile(`FILENAME`)
-		//fmt.Println(r.MatchString(LineString)) // => true
-		//--
+
 		if r.MatchString(LineString) {
 			fileName := strings.Replace(LineString, "FILENAME=", "", 1)
-			//fmt.Println(fileName)
 			file = Config{Name: fileName, Number: 1}
 		} else if LineString == "START" {
 			start = Config{Name: LineString, Number: intNumber}
-			// fmt.Println(start.Name , start.Number)
 		} else if LineString == "END" {
 			end = Config{Name: LineString, Number: intNumber}
-			// fmt.Println(end.Name , end.Number)
 		} else if LineString == "VIDEO" {
 			video = Config{Name: LineString, Number: intNumber}
-			// fmt.Println(video.Name , video.Number)
 		}
 	}
 	fmt.Println(file.Name)
@@ -82,7 +74,6 @@ func main() {
 	var StrEndNum string
 	StrEndNum = strconv.Itoa(end.Number)
 
-	//--コマンド実行--
 	// shファイルに書き込み
 	File, err := os.Create("make.sh")
 	if err != nil {
@@ -95,30 +86,16 @@ func main() {
 	cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + " -s " + StrStartNum + " -e " + StrEndNum + " -a"
 	File.Write(([]byte)(cmdString))
 	// 書き込み終了
-	// // コマンド実行
-	// cmd := exec.Command("sh", "make.sh")
-	// var stdout bytes.Buffer
-	// cmd.Stdout = &stdout
 
-	// err2 := cmd.Run()
-
-	// if err2 != nil {
-	// 	fmt.Println(err2)
-	// 	os.Exit(1)
-	// }
-
-	// fmt.Println(stdout.String())
-	// // コマンド実行終了
 	// 動画書き出す場合
 	if video.Number == 1 {
-		//--コマンド実行--
 		// shファイルに書き込み
 		File, err := os.Create("make.sh")
 		if err != nil {
 			log.Fatal(err) //ファイルが開けなかったときエラー出力
 		}
 		defer File.Close()
-		fmt.Println(StrStartNum,StrEndNum)
+		fmt.Println(StrStartNum, StrEndNum)
 		cmdString := "#!/bin/sh"
 		cmdString = cmdString + "\n\n"
 		cmdString = cmdString + "sudo blender --background -noaudio blend/" + file.Name + " --threads 0 -E CYCLES --render-output img/anim" + " -s " + StrStartNum + " -e " + StrEndNum + " -a"
@@ -130,21 +107,6 @@ func main() {
 		cmdString = cmdString + "sudo python3 pngtomp4.py"
 		File.Write(([]byte)(cmdString))
 		// 書き込み終了
-		// // コマンド実行
-		// cmd := exec.Command("sh", "make_video.sh")
-		// var stdout bytes.Buffer
-		// cmd.Stdout = &stdout
-
-		// err2 := cmd.Run()
-
-		// if err2 != nil {
-		// 	fmt.Println(err2)
-		// 	os.Exit(1)
-		// }
-
-		// fmt.Println(stdout.String())
-		// // コマンド実行終了
-
 	}
 
 }
