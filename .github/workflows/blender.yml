@@ -5,17 +5,23 @@ on:
 
 jobs:
   build:
-    # Ubuntuの最新版環境内で処理を実行することを指定
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run sh
+      - name: Blender Install
         run: |
           sh blend.sh
+      - name: Rendering
+        run: |
+          sudo python3 render.py
           sh make.sh
+      - name: Add & Commit
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .
+          git add img
           git commit -m "Generate PNG"
+          git add blender.mp4
+          git commit -m "Generate MP4"
           git pull 
           git push

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# Blenderのセットアップ
+# Blenderをインストール
 sudo snap install blender --classic
