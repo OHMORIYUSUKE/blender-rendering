@@ -1,5 +1,3 @@
-import os
-
 def main():
     dict_cmd = {}
 
@@ -25,10 +23,6 @@ def main():
 
     text_file = open("make.sh", "wt")
     text_file.write(cmdString)
-
-    stream = os.popen('sh make.sh')
-    output = stream.read()
-    print(output)
 
 if __name__=="__main__":
     main()
