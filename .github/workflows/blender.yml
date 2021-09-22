@@ -14,7 +14,6 @@ jobs:
           sh blend.sh
           sudo apt-get install -y -q python3
           sudo python3 render.py
-          sh make.sh
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .

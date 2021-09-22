@@ -1,3 +1,5 @@
+import os
+
 def main():
     dict_cmd = {}
 
@@ -23,6 +25,8 @@ def main():
 
     text_file = open("make.sh", "wt")
     text_file.write(cmdString)
+
+    os.system('sh make.sh')
 
 if __name__=="__main__":
     main()
