@@ -26,8 +26,9 @@ def main():
     text_file = open("make.sh", "wt")
     text_file.write(cmdString)
 
-    res = os.system('sh make.sh')
-    print(res)
-    
+    stream = os.popen('sh make.sh')
+    output = stream.read()
+    print(output)
+
 if __name__=="__main__":
     main()
