@@ -15,10 +15,9 @@ GitHubActions で Blender をレンダリングします。
 C:.
 │  blend.sh
 │  blender.mp4
-│  make.sh
 │  pngtomp4.py
 │  README.md
-│  render.go
+│  render.py
 │  renderConfig.txt
 │
 ├─.github
@@ -29,6 +28,15 @@ C:.
 │      Miraikomachi.blend
 │
 ├─img
+│      anim1970.png
+│      anim1971.png
+│      anim1972.png
+│      anim1973.png
+│      anim1974.png
+│      anim1975.png
+│      anim1976.png
+│      anim1977.png
+│      anim1978.png
 │      anim1979.png
 │      anim1980.png
 │      anim1981.png
@@ -62,6 +70,9 @@ C:.
 │      anim2009.png
 │      anim2010.png
 │
+├─python
+│      main.py
+│
 └─textures
         bottoms.tga
         eye.tga
@@ -73,11 +84,14 @@ C:.
         skin.tga
         tops.tga
         tops_shd.tga
+
 ```
 
 `blend`ディレクトリにレンダリングしたい Blender のファイルを置きます。
 
 `textures`ディレクトリには Blender のテクスチャデータを配置します。
+
+`python`ディレクトリには Blender で用いているファイルを配置します。
 
 `img`ディレクトリにレンダリングされた画像(PNG)が出力されます。
 
@@ -87,15 +101,17 @@ C:.
 
 ```renderConfig.txt
 FILENAME=Miraikomachi.blend
-START=1978
-END=1978
-VIDEO=0
+START=1969
+END=1969
+VIDEO=1
+PYTHONFILENAME=main.py
 ```
 
 - `FILENAME`には、`blend`ディレクトリにあり、レンダリングしたい Blender のファイル名を指定します。
 - `START`には、レンダリングしたい最初のフレーム番号を指定します。
 - `END`には、レンダリングしたい最後のフレーム番号を指定します。
 - `VIDEO`には、`blender.mp4`を出力するかを指定します。(出力する場合は 1 ,出力しない場合は 0 )
+- `PYTHONFILENAME`には、Blender で用いているファイル名を指定します。(Python ファイルを使っていない場合は 0 を指定します)
 
 > 画像(1 フレームのみ)を出力したい場合は`START`と`END`に同じ番号を指定します。
 
