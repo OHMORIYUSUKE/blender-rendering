@@ -1,5 +1,7 @@
 # blender-rendering
 
+[![blender-rendering](https://github.com/OHMORIYUSUKE/blender-rendering/actions/workflows/blender.yml/badge.svg?branch=master)](https://github.com/OHMORIYUSUKE/blender-rendering/actions/workflows/blender.yml)
+
 GitHubActions で Blender をレンダリングします。
 
 ## 機能
